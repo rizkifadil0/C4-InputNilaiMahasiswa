@@ -1,0 +1,29 @@
+{
+  "name": "website-input-nilai-mahasiswa",
+  "version": "1.0.0",
+  "description": "Website Input Nilai Mahasiswa - Kelompok C4",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "crud",
+    "ejs"
+  ],
+  "author": "Kelompok C4",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "body-parser": "^1.20.2",
+    "express-session": "^1.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

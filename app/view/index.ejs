@@ -1,0 +1,132 @@
+<%- include('partials/header') %>
+
+<h1 class="page-title">
+  <i class="bi bi-bar-chart-fill"></i> Dashboard Nilai Mahasiswa
+</h1>
+
+<!-- Alert Message -->
+<% if (message) { %>
+<div
+  class="alert alert-success alert-custom alert-dismissible fade show"
+  role="alert"
+>
+  <i class="bi bi-check-circle-fill"></i> <%= message %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+<% } %>
+
+<!-- Button Tambah -->
+<div class="mb-4">
+  <a href="/add" class="btn btn-primary btn-custom">
+    <i class="bi bi-plus-circle-fill"></i> Tambah Nilai Baru
+  </a>
+</div>
+
+<!-- Tabel Nilai -->
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>NIM</th>
+        <th>Nama Mahasiswa</th>
+        <th>Kelas</th>
+        <th>Mata Kuliah</th>
+        <th>Tugas</th>
+        <th>UTS</th>
+        <th>UAS</th>
+        <th>Nilai Akhir</th>
+        <th>Grade</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (nilai.length === 0) { %>
+      <tr>
+        <td colspan="11" class="text-center text-muted py-4">
+          <i class="bi bi-inbox" style="font-size: 3rem"></i>
+          <p class="mt-2">Belum ada data nilai. Silakan tambah data baru.</p>
+        </td>
+      </tr>
+      <% } else { %> <% nilai.forEach((item, index) => { const nilaiAkhir =
+      parseFloat(item.nilai_akhir); let grade = ''; let badgeClass = ''; if
+      (nilaiAkhir >= 85) { grade = 'A'; badgeClass = 'bg-success'; } else if
+      (nilaiAkhir >= 70) { grade = 'B'; badgeClass = 'bg-primary'; } else if
+      (nilaiAkhir >= 60) { grade = 'C'; badgeClass = 'bg-warning'; } else if
+      (nilaiAkhir >= 50) { grade = 'D'; badgeClass = 'bg-danger'; } else { grade
+      = 'E'; badgeClass = 'bg-dark'; } %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><strong><%= item.nim %></strong></td>
+        <td><%= item.nama %></td>
+        <td><span class="badge bg-secondary"><%= item.kelas %></span></td>
+        <td><%= item.mata_kuliah %></td>
+        <td><%= item.nilai_tugas %></td>
+        <td><%= item.nilai_uts %></td>
+        <td><%= item.nilai_uas %></td>
+        <td><strong><%= parseFloat(item.nilai_akhir).toFixed(2) %></strong></td>
+        <td><span class="badge <%= badgeClass %>"><%= grade %></span></td>
+        <td>
+          <a
+            href="/edit/<%= item.id_nilai %>"
+            class="btn btn-warning btn-sm"
+            title="Edit"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </a>
+          <form
+            action="/delete/<%= item.id_nilai %>"
+            method="POST"
+            style="display: inline"
+            onsubmit="return confirm('Yakin ingin menghapus data ini?')"
+          >
+            <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% }) %> <% } %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Statistik -->
+<% if (nilai.length > 0) { %>
+<div class="row mt-4">
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-people-fill"></i> Total Data</h5>
+        <h2><%= nilai.length %></h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="bi bi-award-fill"></i> Rata-rata Nilai
+        </h5>
+        <h2>
+          <%= (nilai.reduce((sum, item) => sum + parseFloat(item.nilai_akhir ||
+          0), 0) / nilai.length).toFixed(2) %>
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-white bg-info mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <i class="bi bi-trophy-fill"></i> Nilai Tertinggi
+        </h5>
+        <h2>
+          <%= Math.max(...nilai.map(item => parseFloat(item.nilai_akhir ||
+          0))).toFixed(2) %>
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %> <%- include('partials/footer') %>

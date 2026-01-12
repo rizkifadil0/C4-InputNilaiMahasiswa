@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+
+<h1 class="page-title">
+    <i class="bi bi-pencil-square"></i> Edit Nilai Mahasiswa
+</h1>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <form action="/edit/<%= nilai.id_nilai %>" method="POST">
+                    <!-- Pilih Mahasiswa -->
+                    <div class="mb-3">
+                        <label for="nim" class="form-label fw-bold">
+                            <i class="bi bi-person-badge"></i> Pilih Mahasiswa
+                        </label>
+                        <select class="form-select" id="nim" name="nim" required>
+                            <% mahasiswa.forEach(m => { %>
+                            <option value="<%= m.nim %>" <%= m.nim === nilai.nim ? 'selected' : '' %>>
+                                <%= m.nim %> - <%= m.nama %> (Kelas <%= m.kelas %>)
+                            </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <!-- Mata Kuliah -->
+                    <div class="mb-3">
+                        <label for="mata_kuliah" class="form-label fw-bold">
+                            <i class="bi bi-book-fill"></i> Mata Kuliah
+                        </label>
+                        <input type="text" class="form-control" id="mata_kuliah" name="mata_kuliah" 
+                               value="<%= nilai.mata_kuliah %>" required>
+                    </div>
+
+                    <!-- Nilai Tugas -->
+                    <div class="mb-3">
+                        <label for="nilai_tugas" class="form-label fw-bold">
+                            <i class="bi bi-pencil-square"></i> Nilai Tugas (30%)
+                        </label>
+                        <input type="number" class="form-control" id="nilai_tugas" name="nilai_tugas" 
+                               min="0" max="100" step="0.01" value="<%= nilai.nilai_tugas %>" required>
+                        <small class="text-muted">Masukkan nilai 0-100</small>
+                    </div>
+
+                    <!-- Nilai UTS -->
+                    <div class="mb-3">
+                        <label for="nilai_uts" class="form-label fw-bold">
+                            <i class="bi bi-file-text-fill"></i> Nilai UTS (30%)
+                        </label>
+                        <input type="number" class="form-control" id="nilai_uts" name="nilai_uts" 
+                               min="0" max="100" step="0.01" value="<%= nilai.nilai_uts %>" required>
+                        <small class="text-muted">Masukkan nilai 0-100</small>
+                    </div>
+
+                    <!-- Nilai UAS -->
+                    <div class="mb-3">
+                        <label for="nilai_uas" class="form-label fw-bold">
+                            <i class="bi bi-clipboard-check-fill"></i> Nilai UAS (40%)
+                        </label>
+                        <input type="number" class="form-control" id="nilai_uas" name="nilai_uas" 
+                               min="0" max="100" step="0.01" value="<%= nilai.nilai_uas %>" required>
+                        <small class="text-muted">Masukkan nilai 0-100</small>
+                    </div>
+
+                    <!-- Preview Nilai Akhir -->
+                    <div class="alert alert-info alert-custom">
+                        <i class="bi bi-calculator-fill"></i>
+                        <strong>Nilai Akhir Saat Ini:</strong> <%= parseFloat(nilai.nilai_akhir).toFixed(2) %>
+                        <br><small>Akan dihitung ulang otomatis setelah update</small>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success btn-custom flex-fill">
+                            <i class="bi bi-check-circle-fill"></i> Update Data
+                        </button>
+                        <a href="/" class="btn btn-secondary btn-custom flex-fill">
+                            <i class="bi bi-x-circle-fill"></i> Batal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

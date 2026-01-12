@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+
+<h1 class="page-title"><i class="bi bi-people-fill"></i> Data Mahasiswa</h1>
+
+<!-- Info Card -->
+<div class="alert alert-info alert-custom mb-4">
+  <i class="bi bi-info-circle-fill"></i>
+  <strong>Informasi:</strong> Berikut adalah daftar mahasiswa yang terdaftar
+  dalam sistem.
+</div>
+
+<!-- Tabel Mahasiswa -->
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>NIM</th>
+        <th>Nama Lengkap</th>
+        <th>Kelas</th>
+        <th>Tanggal Terdaftar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (mahasiswa.length === 0) { %>
+      <tr>
+        <td colspan="5" class="text-center text-muted py-4">
+          <i class="bi bi-inbox" style="font-size: 3rem"></i>
+          <p class="mt-2">Belum ada data mahasiswa.</p>
+        </td>
+      </tr>
+      <% } else { %> <% mahasiswa.forEach((m, index) => { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><strong><%= m.nim %></strong></td>
+        <td><%= m.nama %></td>
+        <td><span class="badge bg-secondary"><%= m.kelas %></span></td>
+        <td><%= new Date(m.created_at).toLocaleDateString('id-ID') %></td>
+      </tr>
+      <% }) %> <% } %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Statistik -->
+<div class="row mt-4">
+  <div class="col-md-12">
+    <div class="card text-white bg-primary">
+      <div class="card-body text-center">
+        <h5 class="card-title">
+          <i class="bi bi-people-fill"></i> Total Mahasiswa Terdaftar
+        </h5>
+        <h1><%= mahasiswa.length %></h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button Kembali -->
+<div class="mt-4">
+  <a href="/" class="btn btn-secondary btn-custom">
+    <i class="bi bi-arrow-left"></i> Kembali ke Dashboard
+  </a>
+</div>
+
+<%- include('partials/footer') %>

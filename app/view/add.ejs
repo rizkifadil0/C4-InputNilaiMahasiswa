@@ -1,0 +1,131 @@
+<%- include('partials/header') %>
+
+<h1 class="page-title">
+  <i class="bi bi-plus-circle-fill"></i> Tambah Nilai Mahasiswa
+</h1>
+
+<div class="row">
+  <div class="col-md-8 mx-auto">
+    <div class="card shadow">
+      <div class="card-body p-4">
+        <form action="/add" method="POST">
+          <!-- Pilih Mahasiswa -->
+          <div class="mb-3">
+            <label for="nim" class="form-label fw-bold">
+              <i class="bi bi-person-badge"></i> Pilih Mahasiswa
+            </label>
+            <select class="form-select" id="nim" name="nim" required>
+              <option value="">-- Pilih Mahasiswa --</option>
+              <% mahasiswa.forEach(m => { %>
+              <option value="<%= m.nim %>">
+                <%= m.nim %> - <%= m.nama %> (Kelas <%= m.kelas %>)
+              </option>
+              <% }) %>
+            </select>
+          </div>
+
+          <!-- Mata Kuliah -->
+          <div class="mb-3">
+            <label for="mata_kuliah" class="form-label fw-bold">
+              <i class="bi bi-book-fill"></i> Mata Kuliah
+            </label>
+            <select
+              class="form-select"
+              id="mata_kuliah"
+              name="mata_kuliah"
+              required
+            >
+              <option value="">-- Pilih Mata Kuliah --</option>
+              <option value="Teknologi Server">Teknologi Server</option>
+              <option value="Pemrograman Web">Pemrograman Web</option>
+              <option value="Basis Data">Basis Data</option>
+              <option value="Sistem Operasi">Sistem Operasi</option>
+              <option value="Jaringan Komputer">Jaringan Komputer</option>
+              <option value="Algoritma dan Pemrograman">
+                Algoritma dan Pemrograman
+              </option>
+            </select>
+            <small class="text-muted"
+              >Atau ketik manual mata kuliah lainnya</small
+            >
+          </div>
+
+          <!-- Nilai Tugas -->
+          <div class="mb-3">
+            <label for="nilai_tugas" class="form-label fw-bold">
+              <i class="bi bi-pencil-square"></i> Nilai Tugas (30%)
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="nilai_tugas"
+              name="nilai_tugas"
+              min="0"
+              max="100"
+              step="0.01"
+              required
+            />
+            <small class="text-muted">Masukkan nilai 0-100</small>
+          </div>
+
+          <!-- Nilai UTS -->
+          <div class="mb-3">
+            <label for="nilai_uts" class="form-label fw-bold">
+              <i class="bi bi-file-text-fill"></i> Nilai UTS (30%)
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="nilai_uts"
+              name="nilai_uts"
+              min="0"
+              max="100"
+              step="0.01"
+              required
+            />
+            <small class="text-muted">Masukkan nilai 0-100</small>
+          </div>
+
+          <!-- Nilai UAS -->
+          <div class="mb-3">
+            <label for="nilai_uas" class="form-label fw-bold">
+              <i class="bi bi-clipboard-check-fill"></i> Nilai UAS (40%)
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              id="nilai_uas"
+              name="nilai_uas"
+              min="0"
+              max="100"
+              step="0.01"
+              required
+            />
+            <small class="text-muted">Masukkan nilai 0-100</small>
+          </div>
+
+          <!-- Info Perhitungan -->
+          <div class="alert alert-info alert-custom">
+            <i class="bi bi-info-circle-fill"></i>
+            <strong>Info:</strong> Nilai Akhir akan dihitung otomatis dengan
+            rumus: <br /><code
+              >Nilai Akhir = (Tugas × 30%) + (UTS × 30%) + (UAS × 40%)</code
+            >
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-custom flex-fill">
+              <i class="bi bi-save-fill"></i> Simpan Data
+            </button>
+            <a href="/" class="btn btn-secondary btn-custom flex-fill">
+              <i class="bi bi-arrow-left"></i> Kembali
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
