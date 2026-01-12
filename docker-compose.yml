@@ -9,8 +9,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
-    ports:
-      - "3307:3306"
+    #ports:
+    #- "3307:3306"
     volumes:
       # Data persistence - PENTING agar data tidak hilang
       - mysql_data_c4:/var/lib/mysql
@@ -28,8 +28,8 @@ services:
     build: .
     container_name: app-c4-nilai
     restart: always
-    ports:
-      - "3001:3000"
+    #ports:
+    # - "3001:3000"
     environment:
       DB_HOST: mysql
       DB_USER: ${DB_USER}
